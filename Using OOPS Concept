@@ -4,11 +4,22 @@ using namespace std;
 
 
 
-
+class Player{
+    string name;
+    
+    public:
+    string getName(){
+        return name;
+    }
+    void setName(string name){
+        this->name =name;
+    }
+};
+   
 
 class PlayGame{
     char board[3][3];
-    queue<string> q;
+    queue<Player> q;
     vector<int> moves;
     bool isCompleted;
     public:
@@ -21,7 +32,7 @@ class PlayGame{
          }
     }
     
-    void setPlayers(vector<string> players){
+    void setPlayers(vector<Player> players){
         for(auto it:players)
         q.push(it);
     }
@@ -88,9 +99,9 @@ class PlayGame{
 
             x= moves[moveindex]/3;
             y=moves[moveindex]%3;
-            string cur_player = q.front();
+            Player cur_player = q.front();
             q.pop();
-            if(cur_player=="COMPUTER")
+            if(cur_player.getName()=="COMPUTER")
             {
                 board[x][y]='0';
                 showboard();
@@ -110,7 +121,7 @@ class PlayGame{
         if(isCompleted && moveindex!=9)
         {
             q.pop();
-            cout<<"winner is "<<q.front()<<"\n";
+            cout<<"winner is "<<q.front().getName()<<"\n";
         }
         else
         {
@@ -120,26 +131,20 @@ class PlayGame{
     }
 };
 
-class Player{
-    string name;
-    
-    public:
-    string getName(){
-        return name;
-    }
-};
-   
+
 
 int main() {
    
-  vector<string> players;
+  vector<Player> players;
   int n;
   cin>>n;
   for(int i=0;i<n;i++)
   {
       string x;
       cin>>x;
-      players.push_back(x);
+      Player p;
+      p.setName(x);
+      players.push_back(p);
   }
   
   PlayGame p1;
